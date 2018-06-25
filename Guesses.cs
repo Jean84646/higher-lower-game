@@ -6,12 +6,14 @@ class Guesses
   private int LowerRange;
   private int HigherRange;
   private bool gameOver;
+  private int MyNumber;
 
-  public Guesses(int low = 0, int high = 100, bool over = false)
+  public Guesses(int low = 0, int high = 100, bool over = false, int number = 0)
   {
     LowerRange = low;
     HigherRange = high;
     gameOver = over;
+    MyNumber = number;
   }
 
   public int GetLowerRange()
@@ -26,6 +28,11 @@ class Guesses
 
   public bool IsGameOver(){
     return gameOver;
+  }
+
+  public void SetNumber(int number)
+  {
+    MyNumber = number;
   }
 
   public void makeGuess(int number)
@@ -43,6 +50,23 @@ class Guesses
       gameOver = true;
     }
   }
+
+  public void UserGuess()
+  {
+    Console.WriteLine("Take a guess at computer number.");
+    int userGuess = int.Parse(Console.ReadLine());
+    if(MyNumber > userGuess)
+    {
+      Console.WriteLine("Higher");
+    } else if (MyNumber < userGuess)
+    {
+      Console.WriteLine("Lower");
+    } else
+    {
+      gameOver = true;
+    }
+  }
+
 }
 
 public class Program
@@ -54,18 +78,40 @@ public class Program
     string input = Console.ReadLine();
     if(input == "Y" || input == "y")
     {
-      Console.WriteLine("Okay");
-      while(!guess.IsGameOver())
+      Console.WriteLine("Which game mode would you like to play:");
+      Console.WriteLine("1 = Computer Guess");
+      Console.WriteLine("2 = User Guess");
+      input = Console.ReadLine();
+      if(input == "1")
       {
-        int midGuess = (guess.GetLowerRange() + guess.GetHigherRange())/2;
-        guess.makeGuess(midGuess);
-      }
-      Console.WriteLine("Great! I guessed your number. Would you like to play again? (Y/N)");
-      string playAgain = Console.ReadLine();
-      if(playAgain == "Y" || playAgain == "y")
+        while(!guess.IsGameOver())
+        {
+          int midGuess = (guess.GetLowerRange() + guess.GetHigherRange())/2;
+          guess.makeGuess(midGuess);
+        }
+        Console.WriteLine("Great! I guessed your number. Would you like to play again? (Y/N)");
+        input = Console.ReadLine();
+        if(input == "Y" || input == "y")
+        {
+          Main();
+        }
+      } else
       {
-        Main();
+        Random rnd = new Random();
+        int randomNumber = rnd.Next(1,101);
+        guess.SetNumber(randomNumber);
+        while(!guess.IsGameOver())
+        {
+          guess.UserGuess();
+        }
+        Console.WriteLine("Great! You guessed my number. Would you like to play again? (Y/N)");
+        input = Console.ReadLine();
+        if(input == "Y" || input == "y")
+        {
+          Main();
+        }
       }
+
     }
   }
 
