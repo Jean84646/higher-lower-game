@@ -20,21 +20,17 @@ class Guesses
   {
     return LowerRange;
   }
-
   public int GetHigherRange()
   {
     return HigherRange;
   }
-
   public bool IsGameOver(){
     return gameOver;
   }
-
   public void SetNumber(int number)
   {
     MyNumber = number;
   }
-
   public void makeGuess(int number)
   {
     Console.WriteLine("Is your number higher or lower than " + number + "? (higher/lower/correct)");
@@ -66,7 +62,6 @@ class Guesses
       gameOver = true;
     }
   }
-
 }
 
 public class Program
@@ -111,8 +106,6 @@ public class Program
           Main();
         }
       }
-
     }
   }
-
 }
