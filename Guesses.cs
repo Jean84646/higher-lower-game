@@ -31,7 +31,7 @@ class Guesses
   {
     MyNumber = number;
   }
-  public void makeGuess(int number)
+  public void AIGuess(int number)
   {
     Console.WriteLine("Is your number higher or lower than " + number + "? (higher/lower/correct)");
     string input = Console.ReadLine();
@@ -41,15 +41,18 @@ class Guesses
     } else if(input == "lower")
     {
       HigherRange = number;
-    } else
+    } else if(input == "correct")
     {
       gameOver = true;
+    } else
+    {
+      Console.WriteLine("I don't understand.");
     }
   }
 
   public void UserGuess()
   {
-    Console.WriteLine("Take a guess at computer number.");
+    Console.WriteLine("Take a guess at computer number 1-100.");
     int userGuess = int.Parse(Console.ReadLine());
     if(MyNumber > userGuess)
     {
@@ -82,7 +85,7 @@ public class Program
         while(!guess.IsGameOver())
         {
           int midGuess = (guess.GetLowerRange() + guess.GetHigherRange())/2;
-          guess.makeGuess(midGuess);
+          guess.AIGuess(midGuess);
         }
         Console.WriteLine("Great! I guessed your number. Would you like to play again? (Y/N)");
         input = Console.ReadLine();
